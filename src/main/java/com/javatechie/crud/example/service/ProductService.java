@@ -10,8 +10,11 @@ import com.javatechie.crud.example.repository.ProductRepository;
 import com.javatechie.crud.example.repository.UserRepository;
 import com.javatechie.crud.example.repository.custom.cProductRepo;
 import com.javatechie.crud.example.response.OperationResponse;
+import com.javatechie.crud.example.response.ResponseStatusEnum;
 import com.javatechie.crud.example.response.SearchResponse;
 import com.javatechie.crud.example.response.UserAssetMap;
+
+import net.bytebuddy.dynamic.loading.PackageDefinitionStrategy.Definition.Undefined;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,32 +37,79 @@ public class ProductService {
     @Autowired
     private AssetRepository assetRepo;
 
-    public boolean saveProduct(ProductDTO productDTO) {
+    public OperationResponse saveProduct(ProductDTO productDTO) {
         // return repository.save(product);
         
-        Asset asset=assetRepo.getOne(productDTO.getProduct_type());
+        
+        OperationResponse resp = new OperationResponse();
+
+        try{
+            Asset asset=assetRepo.getOne(productDTO.getProduct_type());
         if(asset!=null){
             Product product=new Product();
-            product.setCd_rom(productDTO.getCd_rom());
-            product.setAsset_date(productDTO.getAsset_date());
-            product.setHdd(productDTO.getHdd());
-            product.setLaptop_number(productDTO.getLaptop_number());
-            product.setMake(productDTO.getMake());
-            product.setModel_no(productDTO.getModel_no());
-            product.setOs(productDTO.getOs());
-            product.setProcessor(productDTO.getProcessor());
-            product.setProduct_number(productDTO.getProduct_number());
+            
+            if(productDTO.getCd_rom()!=null){
+            product.setCd_rom(productDTO.getCd_rom().trim());
+            }
+            
+            if(productDTO.getHdd()!=null){
+            product.setHdd(productDTO.getHdd().trim());
+            }
+
+            if(productDTO.getLaptop_number()!=null){
+            product.setLaptop_number(productDTO.getLaptop_number().trim());
+            }
+
+            if(productDTO.getMake()!=null){
+            product.setMake(productDTO.getMake().trim());
+            }
+
+            if(productDTO.getModel_no()!=null){
+            product.setModel_no(productDTO.getModel_no().trim());
+            }
+
+            if(productDTO.getOs()!=null){
+            product.setOs(productDTO.getOs().trim());
+            }
+
+            if(productDTO.getProcessor()!=null){
+            product.setProcessor(productDTO.getProcessor().trim());
+            }
+
+            if(productDTO.getProduct_number()!=null){
+            product.setProduct_number(productDTO.getProduct_number().trim());
+            }
+
+          
+
+            if(productDTO.getRam()!=null){
+            product.setRam(productDTO.getRam().trim());
+            }
+
+            if(productDTO.getNote()!=null){
+            product.setNote(productDTO.getNote().trim());
+            }
+
+            if(productDTO.getAsset_number()!=null){
+            product.setAsset_number(productDTO.getAsset_number().trim());
+            }
+
             product.setProduct_type(asset);
-            product.setRam(productDTO.getRam());
-            product.setNote(productDTO.getNote());
-            product.setAsset_number(productDTO.getAsset_number());
+            product.setAsset_date(productDTO.getAsset_date());
+           
             repository.save(product);
-            return true;
+            
+            resp.setOperationStatus(ResponseStatusEnum.SUCCESS);
+			resp.setOperationMessage("Asset Added successfully");
 
             
         } 
-        return false;
+    } catch(Exception e){
+        resp.setOperationStatus(ResponseStatusEnum.ERROR);
+        resp.setOperationMessage(e.toString());
+    }
         
+        return resp;
     }
 
     public List<Product> saveProducts(List<Product> products) {

@@ -24,4 +24,7 @@ public class Asset {
 
     @Column(name = "asset_name")
     private String name;
+
+    @Column(name= "configuration")
+    private boolean is_configuration = false;
 }

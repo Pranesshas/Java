@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javatechie.crud.example.entity.Asset;
+import com.javatechie.crud.example.model.AssetDTO;
 import com.javatechie.crud.example.service.AssetService;
 
 @CrossOrigin("http://localhost:4200")
@@ -18,9 +20,9 @@ public class AssetController {
     @Autowired
     private AssetService assetService;
 
-    @PostMapping("/saveAssetType/{assetType}")
-    public boolean saveAssetType(@PathVariable String assetType){
-        return assetService.saveAssetType(assetType);
+    @PostMapping("/saveAssetType")
+    public boolean saveAssetType(@RequestBody AssetDTO assetDTO){
+        return assetService.saveAssetType(assetDTO);
 
     }
 

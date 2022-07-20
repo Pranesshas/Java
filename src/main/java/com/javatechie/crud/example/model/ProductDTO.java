@@ -6,6 +6,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
@@ -34,6 +36,8 @@ public class ProductDTO {
     private Long product_type;
     private String note;
     private String asset_number;
+   private String purchase_document;
+   private Long asset_value;
 
 
 

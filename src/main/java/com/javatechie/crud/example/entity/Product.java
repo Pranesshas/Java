@@ -122,12 +122,18 @@ public class Product  extends AbstractAuditingEntity {
     @Column(name="is_active")
     private boolean is_active = true;
 
-    @Column(name = "Asset_number", length=500)
+    @Column(name = "Asset_number",unique = true)
     private String Asset_number;
     
     @Column(name = "note", length=500)
     private String note;
     
+
+    @Column(name = "purchase_document", length=500)
+    private String purchase_document;
+
+    @Column(name = "asset_value", length=500)
+    private Long asset_value;
 
    
 
