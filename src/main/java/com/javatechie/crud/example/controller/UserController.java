@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.javatechie.crud.example.entity.User;
+import com.javatechie.crud.example.model.UserDTO;
 import com.javatechie.crud.example.response.DashboardData;
 import com.javatechie.crud.example.response.Metric;
 import com.javatechie.crud.example.response.OperationResponse;
@@ -44,9 +45,9 @@ public class UserController {
         return userService.getProjects();
     }
     
-    @GetMapping(value = "/{project}")   
-public List<User> getProjectNames(@PathVariable("project") String project){
-    return userService.getProjectNames(project);
+    @GetMapping(value = "/getUserDetails")   
+public List<UserDTO> getUserDetails(){
+    return userService.getUserDetails();
 }
 
 @GetMapping("/dashboard")

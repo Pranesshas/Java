@@ -13,4 +13,11 @@ public class UserDTO {
     private String phone;
 
     
+public UserDTO(){}
+
+public UserDTO (String email,Long id){
+this.setEmail(email);
+this.setId(id);
+}
+
 }

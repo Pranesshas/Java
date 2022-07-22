@@ -134,24 +134,5 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/updateClientDetails", method = RequestMethod.POST)
-    public boolean catchFile(@RequestParam(value = "file", required = false) MultipartFile file
-    ,@RequestParam("") String companyVo) throws IOException{
-        if (file != null) {
-			// get Original file name
-			String fileName = file.getOriginalFilename();
-
-			// set image name like : 2018_10_26_18_34_33.png(yyy-MM-dd-HH-mm-ss)
-			String modifiedFileName = FilenameUtils.getBaseName(fileName) +"."
-					+ FilenameUtils.getExtension(fileName);
-
-
-			String assetUploadDirPath = env.getProperty("asset.upload.dir.path");
-			String dirPath = assetUploadDirPath + File.separator + "purchase_document" + File.separator;
-			File serverFile = new File(dirPath + modifiedFileName);
-			FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
-            return true;
-        }
-        return false;
-    }
+    
 }

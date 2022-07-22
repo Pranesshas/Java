@@ -17,16 +17,17 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.javatechie.crud.example.model.UserDTO;
 import com.javatechie.crud.example.response.DashboardData;
 @SqlResultSetMapping(
-		name = "WidgetSettingMapping",
+		name = "ProductUserMapping",
 		classes = @ConstructorResult(
 					targetClass = DashboardData.class,
 					columns = {
                             @ColumnResult(name="user_id", type = Long.class),
                             @ColumnResult(name="asset_id", type = Long.class),
 							@ColumnResult(name="name", type = String.class),
-							@ColumnResult(name="project", type = String.class),
+							@ColumnResult(name="designation", type = String.class),
 							@ColumnResult(name="make", type = String.class),
 							@ColumnResult(name="product_type", type = String.class),
                             @ColumnResult(name="model_no", type = String.class),
@@ -34,6 +35,22 @@ import com.javatechie.crud.example.response.DashboardData;
                             @ColumnResult(name="created_date", type = Instant.class),
                             @ColumnResult(name="last_modified_date", type = Instant.class),
 
+
+
+
+
+				}
+		)
+)
+
+@SqlResultSetMapping(
+		name = "UserDetailsMapping",
+		classes = @ConstructorResult(
+					targetClass = UserDTO.class,
+					columns = {
+                            @ColumnResult(name="email", type = String.class),
+                            @ColumnResult(name="user_id", type = Long.class),
+                           
 
 
 

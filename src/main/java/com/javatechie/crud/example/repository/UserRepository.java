@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.javatechie.crud.example.entity.User;
+import com.javatechie.crud.example.model.UserDTO;
 import com.javatechie.crud.example.response.DashboardData;
 
 public interface UserRepository extends JpaRepository<User,Long> {
@@ -16,8 +17,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "Select distinct(project) from user where active=1",nativeQuery = true)
     List<String> getProjects();
 
-    @Query(value = "Select * from user where project= :project",nativeQuery = true)
-    List<User> getUserDetailsAsProjects(@Param("project") String project);
 
     @Query(value = "select * from user where id=(select assigned_user_id from map where assigned_asset_id=:asset_id and status=1);",nativeQuery = true)
     Optional<User> getUserDetailsPerAssets(@Param("asset_id") Long id);
@@ -31,6 +30,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select count( distinct assigned_asset_id )from map;",nativeQuery = true)
     Long  getTotalMapped();
+
+
+ 
 
 
    

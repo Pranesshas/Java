@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javatechie.crud.example.entity.User;
+import com.javatechie.crud.example.model.UserDTO;
 import com.javatechie.crud.example.repository.ProductRepository;
 import com.javatechie.crud.example.repository.UserRepository;
 import com.javatechie.crud.example.response.DashboardData;
@@ -70,16 +71,23 @@ public class UserService {
         return userRepository.getProjects();
     }
 
-    public List<User> getProjectNames(String project){
-        return userRepository.getUserDetailsAsProjects(project);
+    public List<UserDTO> getUserDetails(){
+        // return userRepository.getUserDetails();
+        StringBuilder queryStr = new StringBuilder("Select personal_mail_id as email,employee_name_id as user_id " 
+        + " from employee_details where employment_status='InService'");
+         Query query = em.createNativeQuery(queryStr.toString(),"UserDetailsMapping");
+         
+         
+         List<UserDTO> list = (List<UserDTO>)query.getResultList();
+         return list;
     }
 
     public List<DashboardData>getDashboardData(Integer startPosition){
-        StringBuilder queryStr = new StringBuilder("SELECT o.id as user_id,i.id as asset_id,Concat(o.first_name,' ', o.last_name) as name, o.project, i.make , k.asset_name as product_type,i.model_no,i.product_number,"
-        +" j.created_date,j.last_modified_date FROM user o JOIN map j On o.id=j.assigned_user_id "
-        + " JOIN product i On i.id =  j.assigned_asset_id JOIN asset k On k.id=i.product_type where j.status=1 order by j.id desc ");
+        StringBuilder queryStr = new StringBuilder("SELECT o.employee_name_id as user_id,i.id as asset_id,o.personal_mail_id as name, o.designation, i.make , k.asset_name as product_type,i.model_no,i.product_number, "
+        +" j.created_date,j.last_modified_date FROM employee_details o JOIN map j On o.id=j.assigned_user_id "
+        +" JOIN product i On i.id =  j.assigned_asset_id JOIN asset k On k.id=i.product_type where j.status=1 order by j.id desc ");
 
-        Query query = em.createNativeQuery(queryStr.toString(),"WidgetSettingMapping");
+        Query query = em.createNativeQuery(queryStr.toString(),"ProductUserMapping");
 		
         query.setFirstResult(startPosition);
 		query.setMaxResults(10);
