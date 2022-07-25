@@ -12,4 +12,5 @@ import lombok.Data;
 public class SearchResponse {
     List<ProductDTO> assetList;
 	BigInteger assetCount;
+    List<DashboardData> mapList;
 }

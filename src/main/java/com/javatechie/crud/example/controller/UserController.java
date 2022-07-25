@@ -9,6 +9,7 @@ import com.javatechie.crud.example.response.DashboardData;
 import com.javatechie.crud.example.response.Metric;
 import com.javatechie.crud.example.response.OperationResponse;
 import com.javatechie.crud.example.response.ResponseStatusEnum;
+import com.javatechie.crud.example.response.SearchResponse;
 import com.javatechie.crud.example.service.UserService;
 
 import java.util.List;
@@ -38,6 +39,10 @@ public List<UserDTO> getUserDetails(){
     public Metric getDashboardMetric(){
         return userService.getDashboardMetric();
     }
-
+    
+@RequestMapping("/userMap/search")
+public SearchResponse getSearchResponse(@RequestBody DashboardData dashboardDTO){
+return userService.getSearchResponse(dashboardDTO);
+}
     
 }

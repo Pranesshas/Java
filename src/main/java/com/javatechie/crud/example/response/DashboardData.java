@@ -16,6 +16,8 @@ public class DashboardData {
     private String product_number;
     private Instant created_date;
     private Instant last_modified_date;
+    private int page_number;
+   private int page_size;
 
     public DashboardData() {}
 
