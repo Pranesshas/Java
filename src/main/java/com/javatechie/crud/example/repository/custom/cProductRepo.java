@@ -2,16 +2,17 @@ package com.javatechie.crud.example.repository.custom;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 
 import com.javatechie.crud.example.entity.Product;
 import com.javatechie.crud.example.model.ProductDTO;
+import com.javatechie.crud.example.model.UserDTO;
 import com.javatechie.crud.example.response.OperationResponse;
 import com.javatechie.crud.example.response.SearchResponse;
 
@@ -22,7 +23,7 @@ public class cProductRepo {
 	private EntityManager em;
 
 
-    public SearchResponse getAllUsersPagination(ProductDTO productDTO,Integer startPosition){
+    public SearchResponse getAllUsersPagination(ProductDTO productDTO){
         
         StringBuilder queryStr=new StringBuilder("select p.id,p.cd_rom,p.hdd,p.os,p.processor,p.ram,p.asset_date,p.is_available,p.is_declared,p.laptop_number,p.make,p.model_no,p.is_old,a.asset_name as product_name,p.product_number,p.is_active,p.asset_number,p.note from product p" 
         +" JOIN asset a ON a.id= p.product_type   where p.is_active=1 ");
@@ -122,7 +123,9 @@ public class cProductRepo {
             queryStr.append(" and p.asset_date=:asset_date");
             countQueryStr.append(" and p.asset_date=:asset_date");
         }
-        queryStr.append(" ORDER BY p.id desc ");
+        
+        int num = productDTO.getPage_number()*productDTO.getPage_size();
+        queryStr.append(" ORDER BY p.id desc limit "+productDTO.getPage_size()+" offset  "+num);
 		countQueryStr.append(" ORDER BY p.id desc ");
         
         Query query = em.createNativeQuery(queryStr.toString(),"ProductMapping");
@@ -134,6 +137,7 @@ public class cProductRepo {
             countQuery.setParameter("asset_id", productDTO.getProduct_id());
 
         }
+        
 
 
         if(productDTO.getMake()!=null && !productDTO.getMake().equalsIgnoreCase("")){
@@ -195,16 +199,32 @@ public class cProductRepo {
             countQuery.setParameter("asset_date", productDTO.getAsset_date());
 
         }
-
-        query.setFirstResult(startPosition);
-        query.setMaxResults(10);
+        
+       
         List<ProductDTO> AssetList= query.getResultList();
         BigInteger countResults = (BigInteger) countQuery.getSingleResult();
-
+        
         SearchResponse resp=new SearchResponse();
         resp.setAssetList(AssetList);
         resp.setAssetCount(countResults);
         return resp;
     }
+
+    public UserDTO getMappedProductDetails(Long asset_id){
+   
+        StringBuilder queryStr = new StringBuilder("select employee_name_id as user_id,employment_category,designation, "
+        +" personal_mail_id as email,contact_number as phone from employee_details where employee_name_id=(select assigned_user_id from map where assigned_asset_id=:asset_id and status=1)");
+     
+     Query query = em.createNativeQuery(queryStr.toString(),"UserDetailsMapping");
+    
+     query.setParameter("asset_id",asset_id);
+    
+     UserDTO user=(UserDTO) query.getSingleResult();
+    
+     return user;
+    
+    
+    
+     }
     
 }

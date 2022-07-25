@@ -28,53 +28,13 @@ public class UserService {
     ProductRepository productRepository;
 
 
-    public boolean saveUser(User user) {
-       
-        
-        if(user.getEmail() ==null){
-            return false;
-        }
-       User newUser = this.getUserInfoByEmail(user.getEmail());
-       if (newUser == null || newUser.getId() == null) {
-			// This means the username is not found therfore its is returning a default
-			// value of "new"
-			return this.insertOrSaveUser(user);
-		} else {
-			return false;
-		}
-		
-   
-    }
-    public User getUserInfoByEmail(String email) {
-		User user = this.userRepository.findOneByEmail(email).orElseGet(() -> new User());
-		return user;
-	}
-
-    public boolean insertOrSaveUser(User user) {
-		this.userRepository.save(user);
-		return true;
-	}
-
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
-
-    public User getUsersById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
-    // public User getProductByName(String name) {
-    //     return userRepository.
-    // }
-
-    public List<String> getProjects(){
-        return userRepository.getProjects();
-    }
+  
+    
 
     public List<UserDTO> getUserDetails(){
         // return userRepository.getUserDetails();
-        StringBuilder queryStr = new StringBuilder("Select personal_mail_id as email,employee_name_id as user_id " 
-        + " from employee_details where employment_status='InService'");
+        StringBuilder queryStr = new StringBuilder("select employee_name_id as user_id,employment_category,designation, "
+        +" personal_mail_id as email,contact_number as phone from employee_details where employment_status='InService'");
          Query query = em.createNativeQuery(queryStr.toString(),"UserDetailsMapping");
          
          

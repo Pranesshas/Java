@@ -20,30 +20,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/addUser")
-    public OperationResponse addUser(@RequestBody User user) {
-        
-        boolean userAddSuccess= userService.saveUser(user);
-        OperationResponse resp = new OperationResponse();
-		if (userAddSuccess == true) {
-			resp.setOperationStatus(ResponseStatusEnum.SUCCESS);
-			resp.setOperationMessage("User Added");
-		} else {
-			resp.setOperationStatus(ResponseStatusEnum.ERROR);
-			resp.setOperationMessage("Unable to add user");
-		}
-		return resp;
-    }
 
-    @GetMapping("/allUsers")
-    public List<User> getAllUsers(){
-        return userService.getUsers();
-    }
-
-    @GetMapping("/project")
-    public List<String> getProjects(){
-        return userService.getProjects();
-    }
+   
+    
     
     @GetMapping(value = "/getUserDetails")   
 public List<UserDTO> getUserDetails(){

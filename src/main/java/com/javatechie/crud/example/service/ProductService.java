@@ -9,6 +9,7 @@ import com.javatechie.crud.example.repository.MapRepository;
 import com.javatechie.crud.example.repository.ProductRepository;
 import com.javatechie.crud.example.repository.UserRepository;
 import com.javatechie.crud.example.repository.custom.cProductRepo;
+import com.javatechie.crud.example.repository.custom.cUserRepo;
 import com.javatechie.crud.example.response.OperationResponse;
 import com.javatechie.crud.example.response.ResponseStatusEnum;
 import com.javatechie.crud.example.response.SearchResponse;
@@ -30,6 +31,9 @@ public class ProductService {
 
     @Autowired
     private cProductRepo cproductRepo;
+
+    @Autowired
+    private cUserRepo cuserRepo;
 
     @Autowired
     private UserRepository userRepo;
@@ -126,7 +130,7 @@ public class ProductService {
         userAssets.setProduct(product);
         if(product!=null){
             if(!product.is_available()){
-               userAssets.setUser(userRepo.getUserDetailsPerAssets(assetId));
+                userAssets.setUser(cproductRepo.getMappedProductDetails(assetId));
                 }
             
             }
@@ -173,9 +177,9 @@ public class ProductService {
 
     }
 
-    public SearchResponse searchUsersPagination(ProductDTO productDTO,Integer startPosition){
+    public SearchResponse searchUsersPagination(ProductDTO productDTO){
 
-        return cproductRepo.getAllUsersPagination(productDTO, startPosition);
+        return cproductRepo.getAllUsersPagination(productDTO);
 
     }
 
@@ -183,7 +187,7 @@ public class ProductService {
         List<Product> product=repository.getUserDetailsPerAssets(userId);
         UserAssetMap userAssets= new UserAssetMap();
         userAssets.setProductList(product);
-        userAssets.setUser(userRepo.findById(userId));
+         userAssets.setUser(cuserRepo.findbyEmpId(userId));
 
         
 
@@ -192,5 +196,7 @@ public class ProductService {
         
         
     }
+
+    
 
 }

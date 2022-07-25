@@ -5,19 +5,21 @@ import lombok.Data;
 @Data
 public class UserDTO {
 
-    private Long id;
-    private String username;
-    private String firstName;
-    private String lastName;
+    private String employment_status;
+    private String employment_category;
+    private String designation;
     private String email;
-    private String phone;
-
+    private String contact_number;
+    private Long userId;
     
 public UserDTO(){}
 
-public UserDTO (String email,Long id){
+public UserDTO (Long user_id,String employee_category,String designation,String email,String phone){
 this.setEmail(email);
-this.setId(id);
+this.setUserId(user_id);
+this.setContact_number(phone);
+this.setDesignation(designation);
+this.setEmployment_category(employment_category);
 }
 
 }

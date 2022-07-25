@@ -20,11 +20,5 @@ public class TicketController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/addTicket")
-    public Tickets addUser(@RequestBody Tickets ticket) {
-        User user = userService.getUsersById(1L);
-        // User user2 = userService.getUsersById(1);
-        ticket.setUser(userService.getUsersById(1L));
-        return service.saveTicket(ticket);
-    }
+ 
 }

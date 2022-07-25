@@ -48,54 +48,48 @@ import com.javatechie.crud.example.response.DashboardData;
 		classes = @ConstructorResult(
 					targetClass = UserDTO.class,
 					columns = {
-                            @ColumnResult(name="email", type = String.class),
+                            
                             @ColumnResult(name="user_id", type = Long.class),
+                            @ColumnResult(name="employment_category", type = String.class),
+                            @ColumnResult(name="designation", type = String.class),
                            
-
-
-
-
-				}
+                            @ColumnResult(name="email", type = String.class),
+                            
+                                      
+                            @ColumnResult(name="phone", type = String.class),
+                            }
 		)
 )
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user",
-        uniqueConstraints = {
-            @UniqueConstraint(name="uk_user_username", columnNames={"username"}),
-            @UniqueConstraint(name="uk_user_email", columnNames={"email"})
-        })
+@Table(name = "employee_details")
 
-public class User  extends AbstractAuditingEntity {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "employment_status")
+    private String employment_status;
 
-    @JsonIgnore
-    @Column(name = "password")
-    private String password ;
 
-    @Column(name = "first_name")
-    private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "employment_category")
+    private String employment_category;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "designation")
+    private String designation;
 
-    @Column(name = "phone")
-    private Long phone;
-        
-    @Column(name = "active")
-    private boolean active = true;
+    @Column(name = "personal_mail_id")
+    private String personal_mail_id;
 
-    @Column(name = "project")
-    private String project;
+    @Column(name = "contact_number")
+    private String contact_number;
+
+    @Column(name = "employee_name_id")
+    private Long employee_name_id;
+    
 }

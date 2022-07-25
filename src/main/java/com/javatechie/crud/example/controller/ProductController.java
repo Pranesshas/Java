@@ -100,9 +100,9 @@ public class ProductController {
     // public Product findProductByName(@PathVariable String name) {
     //     return service.getProductByName(name);
     // }
-    @RequestMapping(value = "/asset/search/{startPosition}")
-    public SearchResponse searchUsersPagination(@PathVariable("startPosition") Integer startPosition,@RequestBody ProductDTO productDTO) {
-        return service.searchUsersPagination(productDTO,startPosition);
+    @RequestMapping(value = "/asset/search")
+    public SearchResponse searchUsersPagination(@RequestBody ProductDTO productDTO) {
+        return service.searchUsersPagination(productDTO);
     }
 
     //properly working stuff

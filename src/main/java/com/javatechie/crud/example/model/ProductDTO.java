@@ -38,6 +38,9 @@ public class ProductDTO {
     private String asset_number;
    private String purchase_document;
    private Long asset_value;
+   private int page_number;
+   private int page_size;
+
 
 
 
