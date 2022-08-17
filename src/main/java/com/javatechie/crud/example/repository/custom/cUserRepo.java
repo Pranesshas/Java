@@ -104,32 +104,32 @@ public class cUserRepo {
         }
 
         if(dashboardDTO.getName()!=null && !dashboardDTO.getName().equalsIgnoreCase("")){
-            query.setParameter("name", dashboardDTO.getName());
-            counterQuery.setParameter("name", dashboardDTO.getName());
+            query.setParameter("name","%"+ dashboardDTO.getName().trim()+"%");
+            counterQuery.setParameter("name", "%"+dashboardDTO.getName() +"%");
 
         }
 
         if(dashboardDTO.getProject()!=null && !dashboardDTO.getProject().equalsIgnoreCase("")){
-            query.setParameter("designation", dashboardDTO.getProject());
-            counterQuery.setParameter("designation", dashboardDTO.getProject());
+            query.setParameter("designation", "%"+dashboardDTO.getProject().trim()+"%");
+            counterQuery.setParameter("designation", "%"+dashboardDTO.getProject().trim()+"%");
 
         }
 
         if(dashboardDTO.getMake()!=null && !dashboardDTO.getMake().equalsIgnoreCase("")){
-            query.setParameter("make", dashboardDTO.getMake());
-            counterQuery.setParameter("make", dashboardDTO.getMake());
+            query.setParameter("make", "%"+dashboardDTO.getMake().trim()+"%");
+            counterQuery.setParameter("make", "%"+dashboardDTO.getMake().trim()+"%");
 
         }
 
         if(dashboardDTO.getProduct_type()!=null && !dashboardDTO.getProduct_type().equalsIgnoreCase("")){
-            query.setParameter("productType", dashboardDTO.getProduct_type());
-            counterQuery.setParameter("productType", dashboardDTO.getProduct_type());
+            query.setParameter("productType", "%"+dashboardDTO.getProduct_type().trim()+"%");
+            counterQuery.setParameter("productType", "%"+dashboardDTO.getProduct_type().trim()+"%");
 
         }
 
         if(dashboardDTO.getModel_no()!=null && !dashboardDTO.getModel_no().equalsIgnoreCase("")){
-            query.setParameter("modelNo", dashboardDTO.getModel_no());
-            counterQuery.setParameter("modelNo", dashboardDTO.getModel_no());
+            query.setParameter("modelNo", "%"+dashboardDTO.getModel_no().trim()+"%");
+            counterQuery.setParameter("modelNo", "%"+dashboardDTO.getModel_no().trim()+"%");
 
         }
 
